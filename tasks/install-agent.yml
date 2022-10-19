@@ -1,5 +1,14 @@
 ---
-- name: Copy K3s service file
+- name: Update K3s config
+  template:
+    src: "k3s-agent.default.j2"
+    dest: "/etc/default/k3s-agent"
+    owner: root
+    group: root
+    mode: 0640
+  notify:
+    - restart k3s-agent
+- name: Install K3s systemd service
   template:
     src: "k3s-agent.service.j2"
     dest: "{{ systemd_dir }}/k3s-agent.service"
