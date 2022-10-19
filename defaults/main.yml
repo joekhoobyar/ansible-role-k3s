@@ -1,9 +1,17 @@
 k3s_version: v1.23.12+k3s1
 
-# k3s_master_address: 1.2.3.4
-# k3s_token: SUPER-SECRET-TOKEN
-# k3s_server_extra_args: "--node-taint CriticalAddonsOnly=true:NoExecute"
+k3s_server: yes
+k3s_agent:  no
 # k3s_agent_extra_args: ""
+# k3s_cluster_init_addres: 5.6.7.8
+# k3s_cluster_init_node: my-first-master
+# k3s_apiserver_address: 1.2.3.4
+k3s_apiserver_port: 443
+k3s_apiserver_fqdn: k3s
+k3s_apiserver_host: k3s
+# k3s_token: SUPER-SECRET-TOKEN
+# k3s_gent_token: SUPER-SECRET-TOKEN
+# k3s_server_extra_args: "--node-taint CriticalAddonsOnly=true:NoExecute"
 k3s_server_location: /var/lib/rancher/k3s
 
 systemd_dir: /etc/systemd/system
