@@ -13,7 +13,7 @@ ExecStart=/usr/local/bin/k3s server \
   --secrets-encryption \
   --tls-san {{ k3s_apiserver_fqdn }} \
 {% if ansible_hostname == k3s_cluster_init_node %}  --cluster-init \
-{% else %}  --server https://{{ k3s_apiserver_address }}:6443 \
+{% else %}  --server https://{{ k3s_apiserver_address }}:{{ k3s_apiserver_port }} \
 {% endif %}  {{ k3s_server_extra_args | default("") }}
 KillMode=process
 Delegate=yes
