@@ -11,6 +11,8 @@ ExecStartPre=-/sbin/modprobe overlay
 ExecStart=/usr/local/bin/k3s server \
   --data-dir {{ k3s_server_location }} \
   --secrets-encryption \
+  --tls-san {{ k3s_apiserver_address }} \
+  --tls-san {{ k3s_apiserver_host }} \
   --tls-san {{ k3s_apiserver_fqdn }} \
 {% if ansible_hostname == k3s_cluster_init_node %}  --cluster-init \
 {% else %}  --server https://{{ k3s_apiserver_address }}:{{ k3s_apiserver_port }} \
