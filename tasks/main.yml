@@ -2,8 +2,8 @@
 - import_tasks: prereq.yml
 - import_tasks: download.yml
 
-## Installation
-#- import_tasks: install-server.yml
-#  when: k3s_server
+# Installation
+- import_tasks: install-server.yml
+  when: k3s_server
 #- import_tasks: install-agent.yml
 #  when: k3s_agent and not k3s_server

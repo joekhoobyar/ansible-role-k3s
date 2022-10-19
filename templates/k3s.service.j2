@@ -4,10 +4,15 @@ Documentation=https://k3s.io
 After=network-online.target
 
 [Service]
+EnvironmentFile=-/etc/default/k3s
 Type=notify
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
-ExecStart=/usr/local/bin/k3s server --data-dir {{ k3s_server_location }} {{ k3s_server_extra_args | default("") }}
+ExecStart=/usr/local/bin/k3s server \
+  --data-dir {{ k3s_server_location }} \
+  --secrets-encryption \
+  --tls-san {{ k3s_apiserver_fqdn }} \
+  {{ k3s_server_extra_args | default("") }}
 KillMode=process
 Delegate=yes
 # Having non-zero Limit*s causes performance problems due to accounting overhead
