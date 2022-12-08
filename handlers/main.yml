@@ -1,7 +1,7 @@
 - name: restart k3s
   service:
-    name: k3s
-    state: "{{ 'restarted' if k3s_server else 'stopped' }}"
+    name: "{{ 'k3s' if k3s_server else 'k3s-agent' }}"
+    state: restarted
 - name: restart k3s-agent
   service:
     name: k3s-agent
