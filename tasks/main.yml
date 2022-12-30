@@ -1,6 +1,7 @@
 # Prerequisites and software download
 - import_tasks: prereq.yml
 - import_tasks: download.yml
+- import_tasks: swapoff.yml
 
 # Installation
 - import_tasks: install-server.yml
