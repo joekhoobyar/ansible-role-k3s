@@ -36,6 +36,7 @@
     - net.bridge.bridge-nf-call-ip6tables
 
 # Missing apparmor parser
+# See: https://github.com/rancher/k3os/issues/702
 - name: Add apparmor parser
   apt:
     package: apparmor
