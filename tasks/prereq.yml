@@ -35,6 +35,13 @@
     - net.bridge.bridge-nf-call-iptables
     - net.bridge.bridge-nf-call-ip6tables
 
+# Missing apparmor parser
+- name: Add apparmor parser
+  apt:
+    package: apparmor
+    state: latest
+  when: ansible_facts['os_family']|lower == 'debian'
+
 # Missing /usr/local/bin 
 - name: Add /usr/local/bin to sudo secure_path
   lineinfile:
