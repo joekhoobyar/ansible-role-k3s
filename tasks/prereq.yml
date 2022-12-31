@@ -53,3 +53,18 @@
     path: /etc/sudoers
     validate: 'visudo -cf %s'
   when: ansible_distribution in ['CentOS', 'Red Hat Enterprise Linux']
+
+# Too low inotify settings
+- name: increase inotify settings
+  copy:
+    content: |
+      fs.inotify.max_user_instances = 160
+      fs.inotify.max_user_watches   = 204800
+    dest: /etc/sysctl.d/50-inotify.conf
+    mode: 0644
+    owner: root
+    group: root
+  register: increase_inotify
+- name: apply inotify settings
+  shell: sysctl -p /etc/sysctl.d/50-inotify.conf
+  when: increase_inotify.changed

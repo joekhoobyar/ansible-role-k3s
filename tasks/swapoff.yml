@@ -21,6 +21,13 @@
   changed_when: no
 
 # Override swappiness
+# See:
+# - https://kb.lc/01.how_to/kswapd0/
+- name: remove default swappiness
+  lineinfile:
+    path: /etc/sysctl.conf
+    state: absent
+    regexp: '^vm.swappiness'
 - name: disable swappiness
   copy:
     content: |
