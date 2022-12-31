@@ -68,3 +68,21 @@
 - name: apply inotify settings
   shell: sysctl -p /etc/sysctl.d/50-inotify.conf
   when: increase_inotify.changed
+
+# Transparent huge pages
+# See:
+# - https://blog.nelhage.com/post/transparent-hugepages/
+- name: madvise transparent huge pages
+  copy:
+    content: |
+      if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
+        echo madvise > /sys/kernel/mm/transparent_hugepage/enabled
+      fi
+    dest: /etc/rc.local.d/transparent_hugepage-madvise.sh
+    mode: 0755
+    owner: root
+    group: root
+  register: transparent_hugepage
+- name: apply transparent_hugepage
+  shell: /etc/rc.local.d/transparent_hugepage-madvise.sh
+  when: transparent_hugepage.changed
