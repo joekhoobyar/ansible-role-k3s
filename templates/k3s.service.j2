@@ -5,6 +5,7 @@ After=network-online.target
 
 [Service]
 EnvironmentFile=-/etc/default/k3s
+Slice=kube.slice
 Type=notify
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
@@ -14,6 +15,7 @@ ExecStart=/usr/local/bin/k3s server \
   --tls-san {{ k3s_apiserver_address }} \
   --tls-san {{ k3s_apiserver_host }} \
   --tls-san {{ k3s_apiserver_fqdn }} \
+  --kubelet-arg=system-reserved=cpu={{ k3s_system_reserved_cpu }},memory={{ k3s_system_reserved_memory }} \
   --kubelet-arg=kube-reserved=cpu={{ k3s_server_reserved_cpu }},memory={{ k3s_server_reserved_memory }} \
 {% if ansible_hostname == k3s_cluster_init_node %}  --cluster-init \
 {% else %} --server https://{{ k3s_cluster_init_address }}:6443 \

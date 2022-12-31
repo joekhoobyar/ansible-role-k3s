@@ -4,11 +4,13 @@ Documentation=https://k3s.io
 After=network-online.target
 
 [Service]
+Slice=kube.slice
 Type=notify
 EnvironmentFile=-/etc/default/k3s-agent
 ExecStartPre=-/sbin/modprobe br_netfilter
 ExecStartPre=-/sbin/modprobe overlay
 ExecStart=/usr/local/bin/k3s agent \
+  --kubelet-arg=system-reserved=cpu={{ k3s_system_reserved_cpu }},memory={{ k3s_system_reserved_memory }} \
   --kubelet-arg=kube-reserved=cpu={{ k3s_agent_reserved_cpu }},memory={{ k3s_agent_reserved_memory }} {{ k3s_agent_extra_args | default("") }}
 KillMode=process
 Delegate=yes

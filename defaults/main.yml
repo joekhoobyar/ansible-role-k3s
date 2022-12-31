@@ -1,5 +1,7 @@
 k3s_version: v1.24.9+k3s1
 
+k3s_system_reserved_cpu: 150m
+k3s_system_reserved_memory: 300Mi
 k3s_server: yes
 k3s_server_reserved_cpu: 875m
 k3s_server_reserved_memory: 1100Mi
