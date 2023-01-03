@@ -12,6 +12,20 @@
     reload: yes
   when: ansible_all_ipv6_addresses
 
+# IP tables
+- name: Set iptables implementation
+  alternatives:
+    name: iptables
+    link: /usr/sbin/iptables
+    path: /usr/sbin/iptables-{{ iptables_alternative }}
+  when: ansible_facts['os_family']|lower == 'debian'
+- name: Set ip6tables implementation
+  alternatives:
+    name: ip6tables
+    link: /usr/sbin/ip6tables
+    path: /usr/sbin/ip6tables-{{ iptables_alternative }}
+  when: ansible_facts['os_family']|lower == 'debian'
+
 # IP filtering
 - name: Add br_netfilter to /etc/modules-load.d/
   copy:
