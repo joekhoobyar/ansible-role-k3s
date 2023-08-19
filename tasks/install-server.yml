@@ -2,9 +2,9 @@
 - name: Install etcdctl
   shell: |
     ETCD_VERSION="v{{ k3s_server_etcdctl_version }}"
-    if [[ "$(uname -m)" = "aarch64" ]]
-    then ETCD_ARCH="arm64"
-    else ETCD_ARCH="amd64"
+    if [[ "{{ ansible_facts.architecture }}" = "x86_64" ]]
+    then ETCD_ARCH="amd64"
+    else ETCD_ARCH="arm64"
     fi
     ETCD_URL="https://github.com/etcd-io/etcd/releases/download/${ETCD_VERSION}/etcd-${ETCD_VERSION}-linux-${ETCD_ARCH}.tar.gz"
     curl -sL ${ETCD_URL} | sudo tar -zxv --strip-components=1 -C /usr/local/bin
