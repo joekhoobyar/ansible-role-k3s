@@ -2,7 +2,7 @@
   shell: |
     echo $(
       for d in /var/lib/rancher /var/lib/containers /var/lib/kubelet
-      do systemctl list-units | grep -wo $d | awk '{ print $1 }'
+      do systemctl list-units | grep $d | grep -v kubelet.pods | awk '{ print $1 }'
       done | sort -u
     )
   register: k3s_required_mounts
