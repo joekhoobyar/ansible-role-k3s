@@ -4,6 +4,8 @@
 - import_tasks: swapoff.yml
 
 # Installation
+- import_tasks: preinstall.yml
+  when: k3s_server or k3s_agent
 - import_tasks: install-server.yml
   when: k3s_server
 - import_tasks: install-agent.yml

@@ -23,3 +23,5 @@ k3s_apiserver_host: k3s
 k3s_server_location: /var/lib/rancher/k3s
 
 systemd_dir: /etc/systemd/system
+
+systemd_mounts: /var/lib/rancher /var/lib/containers /var/lib/kubelet

@@ -1,7 +1,8 @@
 [Unit]
 Description=Lightweight Kubernetes
 Documentation=https://k3s.io
-After=network-online.target
+Requires={{ k3s_mounts }}
+After=network-online.target {{ k3s_mounts }}
 
 [Service]
 EnvironmentFile=-/etc/default/k3s

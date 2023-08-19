@@ -1,0 +1,10 @@
+- name: Find required mounts
+  shell: |
+    for d in /var/lib/rancher /var/lib/containers /var/lib/kubelet
+    do
+      systemctl list-units | grep $d | awk '{ printf "%s ", $1 }'
+    done
+  register: k3s_required_mounts
+- name: Set required mounts
+  set_fact:
+    k3s_mounts: "{{ k3s_required_mounts.stdout }}"
