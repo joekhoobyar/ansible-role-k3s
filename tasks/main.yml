@@ -2,6 +2,7 @@
 - import_tasks: prereq.yml
 - import_tasks: download.yml
 - import_tasks: swapoff.yml
+  tags: k3s-swapoff
 
 # Installation
 - import_tasks: preinstall.yml

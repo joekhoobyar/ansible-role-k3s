@@ -5,17 +5,20 @@
     regexp: '^([^\s#][^\s]*[\s]+[^\s]+[\s]+swap[\s]+.*)$'
     replace: '#\1'
     backup: yes
-- name: enumerate systemd swap units
+- name: enumerate systemd swap unit files
   shell:
     cmd: "systemctl list-unit-files --type swap | grep -v ^UNIT | tr -s '[[:space:]]' | grep 'enabled$' | cut -d' ' -f 1"
-  register: systemd_swap_units
+  register: systemd_swap_unit_files
   changed_when: no
   when: ansible_service_mgr | lower == 'systemd'
-- name: mask systemd swap units
+- name: mask systemd swap unit files
   shell:
     cmd: "systemctl mask {{ item }}"
-  loop: "{{ systemd_swap_units.stdout_lines | map('trim') | list() }}"
-  when: systemd_swap_units.stdout_lines | default([]) | length() > 0
+  loop: "{{ systemd_swap_unit_files.stdout_lines | map('trim') | list() }}"
+  when: systemd_swap_unit_files.stdout_lines | default([]) | length() > 0
+- name: mask systemd swap.target
+  shell:
+    cmd: "systemctl mask swap.target"
 - name: disable swap
   command: swapoff -a
   changed_when: no
