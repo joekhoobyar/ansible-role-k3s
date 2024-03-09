@@ -6,6 +6,7 @@
       done | sort -u
     )
   register: k3s_required_mounts
+  changed_when: no
 - name: Set required mounts
   set_fact:
     k3s_mounts: "{{ k3s_required_mounts.stdout }}"
