@@ -1,4 +1,4 @@
-k3s_version: v1.24.17+k3s1
+k3s_version: v1.25.16+k3s4
 
 iptables_alternative: nft
 
