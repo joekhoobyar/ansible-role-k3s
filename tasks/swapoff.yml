@@ -16,6 +16,17 @@
     cmd: "systemctl mask {{ item }}"
   loop: "{{ systemd_swap_unit_files.stdout_lines | map('trim') | list() }}"
   when: systemd_swap_unit_files.stdout_lines | default([]) | length() > 0
+- name: enumerate common systemd swap units
+  shell:
+    cmd: "systemctl list-units | sed -ne 's@^  \\(dphys-swapfile\\.service\\|.*\\.swap\\) .*$@\\1@p'"
+  register: systemd_swap_units
+  changed_when: no
+  when: ansible_service_mgr | lower == 'systemd'
+- name: mask systemd swap units
+  shell:
+    cmd: "systemctl mask {{ item }}"
+  loop: "{{ systemd_swap_units.stdout_lines | map('trim') | list() }}"
+  when: systemd_swap_units.stdout_lines | default([]) | length() > 0
 - name: mask systemd swap.target
   shell:
     cmd: "systemctl mask swap.target"
