@@ -21,6 +21,7 @@ k3s_apiserver_fqdn: k3s
 k3s_apiserver_host: k3s
 # k3s_token: SUPER-SECRET-TOKEN
 # k3s_agent_token: SUPER-SECRET-TOKEN
+# k3s_bootstrap_token: SUPER-SECRET-TOKEN
 # k3s_server_extra_args: "--node-taint CriticalAddonsOnly=true:NoExecute"
 k3s_server_location: /var/lib/rancher/k3s
 
