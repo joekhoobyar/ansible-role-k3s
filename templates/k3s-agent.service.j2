@@ -3,6 +3,8 @@ Description=Lightweight Kubernetes
 Documentation=https://k3s.io
 Requires={{ k3s_mounts }}
 After=network-online.target {{ k3s_mounts }}
+StartLimitIntervalSec={{ k3s_respawn_period | default(300) }}
+StartLimitBurst={{ k3s_respawn_limit | default(6) }}
 
 [Service]
 Slice=kube.slice
@@ -22,8 +24,8 @@ LimitNPROC=infinity
 LimitCORE=infinity
 TasksMax=infinity
 TimeoutStartSec=0
-Restart=always
-RestartSec=5s
+Restart=on-failure
+RestartSec={{ k3s_respawn_seconds | default(10) }}s
 
 [Install]
 WantedBy=multi-user.target
