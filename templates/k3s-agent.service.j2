@@ -24,7 +24,7 @@ LimitNPROC=infinity
 LimitCORE=infinity
 TasksMax=infinity
 TimeoutStartSec=0
-Restart=on-failure
+Restart={{ k3s_respawn_on | default("always") }}
 RestartSec={{ k3s_respawn_seconds | default(10) }}s
 
 [Install]
