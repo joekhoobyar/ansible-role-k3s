@@ -2,7 +2,7 @@
 
 ## Overview
 
-Stolen from https://github.com/k3s-io/k3s-ansible, with changes:
+Stolen from [k3s-io/k8s-ansible](https://github.com/k3s-io/k3s-ansible), with changes:
 
 - Better support for resource and storage constrained devices (like SBCs)
   - Reasonable defaults for reserving CPU and memory
